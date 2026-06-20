@@ -35,13 +35,16 @@ pygame.init()
 
 # =============================================================================
 # CONFIGURACIÓN DE LA VENTANA
-# Se define el tamaño de la ventana en píxeles y se crea la superficie principal
-# donde se dibujará todo el contenido del juego.
+# pygame.display.Info() obtiene información del monitor actual ANTES de crear
+# la ventana. current_w y current_h devuelven la resolución nativa del monitor.
+# pygame.FULLSCREEN crea la ventana a pantalla completa con esas dimensiones,
+# adaptándose automáticamente a cualquier resolución sin deformar el contenido.
 # =============================================================================
 
-ANCHO = 1915 # Anchura de la ventana en píxeles
-ALTO = 1005 # Altura de la ventana en píxeles
-VENTANA = pygame.display.set_mode((ANCHO, ALTO)) # Crear la ventana con las dimensiones definidas
+info = pygame.display.Info()
+ANCHO = info.current_w # Anchura nativa del monitor en píxeles
+ALTO  = info.current_h # Altura nativa del monitor en píxeles
+VENTANA = pygame.display.set_mode((ANCHO, ALTO), pygame.FULLSCREEN)
 pygame.display.set_caption("🏙 GOTHAM INVADERS 🏙") # Título que aparece en la barra superior de la ventana
 
 # =============================================================================
@@ -449,7 +452,8 @@ while ejecutando:
     # PANTALLA DE PAUSA
     # Mientras pausado sea True, el bucle principal se congela aquí.
     # El while pausado tiene su propio bucle de eventos para detectar
-    # ESC (reanudar) y permitir ajuste de volumen durante la pausa.
+    # ESC (reanudar), permitir ajuste de volumen durante la pausa y
+    # Q (salir del juego).
     # -------------------------------------------------------------------------
 
     while pausado:
@@ -463,6 +467,10 @@ while ejecutando:
         # Instrucción para reanudar
         texto_reanudar = fuente_hud.render("Pulsa ESC para reanudar la partida", True, BLANCO)
         VENTANA.blit(texto_reanudar, (ANCHO // 2 - texto_reanudar.get_width() // 2, ALTO // 2 + 120))
+        
+        # Instrucción para salir del juego
+        texto_salir = fuente_hud.render("Pulsa Q para salir del juego", True, ROJO)
+        VENTANA.blit(texto_salir, (ANCHO // 2 - texto_salir.get_width() // 2, ALTO // 2 + 160))
 
         # Control de volumen con fondo semitransparente
         texto_volumen = fuente_hud.render(f"Volumen: {int(volumen * 100)}%  [+/-]", True, BLANCO)
@@ -487,9 +495,9 @@ while ejecutando:
                     actualizar_volumen_efectos(volumen)
                 if evento.key == pygame.K_ESCAPE:
                     pausado = False # Sale del while pausado y reanuda el juego
-            if evento.type == pygame.QUIT:
-                pygame.quit()
-                exit()
+                if evento.key == pygame.K_q:
+                    pygame.quit()
+                    exit()
 
     # -------------------------------------------------------------------------
     # MOVIMIENTO DEL JUGADOR
@@ -766,10 +774,10 @@ while ejecutando:
     VENTANA.blit(texto_puntuaje, (10, 20))
 
     texto_tiempo = fuente_hud.render(f"Tiempo de juego: {tiempo_actual}", True, BLANCO)
-    VENTANA.blit(texto_tiempo, (1680, 20))
+    VENTANA.blit(texto_tiempo, (ANCHO - 235, 20))
 
     texto_oleada = fuente_hud.render(f"Oleada actual: {oleada}", True, BLANCO)
-    VENTANA.blit(texto_oleada, (1680, 50))
+    VENTANA.blit(texto_oleada, (ANCHO - 235, 50))
 
     pygame.display.flip() # Muestra en pantalla todo lo dibujado este frame
 
