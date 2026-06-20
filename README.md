@@ -34,8 +34,9 @@ Gotham Invaders es un videojuego de arcade desarrollado con Python y pygame. El 
 - Entrada de nombre estilo arcade (3 letras)
 - Música de fondo en bucle con control de volumen (+/-)
 - Efectos de sonido para disparo, impacto, power-ups y cambio de oleada
-- Menú principal y menú de pausa
+- Menú principal y menú de pausa con opción de salida (tecla Q)
 - Pantalla de introducción de nombre con cursor parpadeante
+- Pantalla completa adaptativa a la resolución del monitor
 
 ---
 
@@ -46,6 +47,7 @@ Gotham Invaders es un videojuego de arcade desarrollado con Python y pygame. El 
 | ← → | Mover a Harley Quinn |
 | Espacio | Disparar el bate |
 | ESC | Pausar / Reanudar |
+| Q | Salir al escritorio (desde el menú de pausa) |
 | + / - | Subir / Bajar volumen |
 | ENTER | Confirmar en menús |
 | BACKSPACE | Borrar letra en el nombre |
@@ -137,7 +139,6 @@ A partir de la oleada 2 aparecen 2 pociones de vida extra por oleada. Permanecen
 Se suma 1 punto por cada enemigo eliminado con el bate. Al finalizar la partida (victoria o Game Over) se registra el nombre, puntos, tiempo y oleada alcanzada en el Top 10.
 
 ---
-
 
 ## 📝 Licencia
 
