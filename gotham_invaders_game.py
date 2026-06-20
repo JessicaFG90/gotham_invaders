@@ -13,6 +13,31 @@ import pygame # Librería principal para el desarrollo del videojuego
 import random # Para generar posiciones y eventos aleatorios
 import os # Para manejar rutas de archivos del sistema operativo
 import numpy as np # Para generar el efecto de estática en la pantalla de Game Over
+import sys # Para obtener la ruta del script ejecutable
+
+def ruta_recurso(ruta_relativa):
+    """
+    Devuelve la ruta absoluta al recurso, compatible tanto con la ejecución
+    normal del script (.py) como con el ejecutable compilado (.exe) generado
+    por PyInstaller.
+    
+    Cuando PyInstaller empaqueta el juego en un .exe, extrae todos los recursos
+    en una carpeta temporal accesible mediante sys._MEIPASS. Esta función
+    detecta automáticamente en qué entorno se está ejecutando el programa:
+    - Si está empaquetado (frozen): usa sys._MEIPASS como ruta base.
+    - Si se ejecuta como script: usa la carpeta del archivo .py como ruta base.
+    
+    Parámetro:
+        ruta_relativa (str): Ruta relativa al recurso (ej: "Img/gotham.png")
+    
+    Retorna:
+        str: Ruta absoluta al recurso en el entorno actual.
+    """
+    if getattr(sys, 'frozen', False):
+        base = sys._MEIPASS # Carpeta temporal de PyInstaller
+    else:
+        base = os.path.dirname(os.path.abspath(__file__)) # Carpeta del .py
+    return os.path.join(base, ruta_relativa)
 
 # =============================================================================
 # CONFIGURACIÓN INICIAL DEL SISTEMA DE ARCHIVOS
@@ -22,7 +47,10 @@ import numpy as np # Para generar el efecto de estática en la pantalla de Game 
 # se ejecute el programa.
 # =============================================================================
 
-carpeta_script = os.path.dirname(os.path.abspath(__file__))
+if getattr(sys, 'frozen', False):
+    carpeta_script = os.path.dirname(sys.executable)  # Ruta del .exe
+else:
+    carpeta_script = os.path.dirname(os.path.abspath(__file__))  # Ruta del .py
 os.chdir(carpeta_script)
 
 # =============================================================================
@@ -80,14 +108,14 @@ clock = pygame.time.Clock()
 # Todas las imágenes están en la subcarpeta Img/.
 # =============================================================================
 
-fondo = pygame.image.load("Img/gotham.png") # Fondo de la ciudad de Gotham
-jugador_img = pygame.image.load("Img/harley.png") # Sprite del jugador (Harley Quinn)
-enemigo_img = pygame.image.load("Img/batman.png") # Sprite del enemigo (Batman)
-bala_img = pygame.image.load("Img/bate.png") # Sprite del proyectil del jugador (bate de béisbol)
-vidaLlena_img = pygame.image.load("Img/vida_llena.png") # Corazón lleno para el HUD de vidas
-vidaVacia_img = pygame.image.load("Img/vida_vacia.png") # Corazón vacío para el HUD de vidas
-murcielago_img = pygame.image.load("Img/murcielago.png") # Sprite del proyectil enemigo (murciélago)
-potion_img = pygame.image.load("Img/potion_bottle_shine.png") # Sprite del power-up (poción de vida)
+fondo = pygame.image.load(ruta_recurso("Img/gotham.png")) # Fondo de la ciudad de Gotham
+jugador_img = pygame.image.load(ruta_recurso("Img/harley.png")) # Sprite del jugador (Harley Quinn)
+enemigo_img = pygame.image.load(ruta_recurso("Img/batman.png")) # Sprite del enemigo (Batman)
+bala_img = pygame.image.load(ruta_recurso("Img/bate.png")) # Sprite del proyectil del jugador (bate de béisbol)
+vidaLlena_img = pygame.image.load(ruta_recurso("Img/vida_llena.png")) # Corazón lleno para el HUD de vidas
+vidaVacia_img = pygame.image.load(ruta_recurso("Img/vida_vacia.png")) # Corazón vacío para el HUD de vidas
+murcielago_img = pygame.image.load(ruta_recurso("Img/murcielago.png")) # Sprite del proyectil enemigo (murciélago)
+potion_img = pygame.image.load(ruta_recurso("Img/potion_bottle_shine.png")) # Sprite del power-up (poción de vida)
 
 # =============================================================================
 # CARGA DE SONIDOS
@@ -96,12 +124,12 @@ potion_img = pygame.image.load("Img/potion_bottle_shine.png") # Sprite del power
 # Todos los sonidos están en la subcarpeta Sonidos/.
 # =============================================================================
 
-sonido_disparo = pygame.mixer.Sound("Sonidos/whoosh.mp3") # Sonido al disparar el bate
-sonido_impacto = pygame.mixer.Sound("Sonidos/slime.mp3") # Sonido al impactar bala o colisión
-sonido_pocion_cae = pygame.mixer.Sound("Sonidos/potion-music.wav") # Sonido mientras la poción cae
-sonido_pocion_recoge = pygame.mixer.Sound("Sonidos/potion-drink.wav") # Sonido al recoger la poción
-sonido_pocion_suelo = pygame.mixer.Sound("Sonidos/glitter-sparkle.mp3") # Sonido mientras la poción está en el suelo
-sonido_next_level = pygame.mixer.Sound("Sonidos/level_complete.mp3") # Sonido al pasar de oleada
+sonido_disparo = pygame.mixer.Sound(ruta_recurso("Sonidos/whoosh.mp3")) # Sonido al disparar el bate
+sonido_impacto = pygame.mixer.Sound(ruta_recurso("Sonidos/slime.mp3")) # Sonido al impactar bala o colisión
+sonido_pocion_cae = pygame.mixer.Sound(ruta_recurso("Sonidos/potion-music.wav")) # Sonido mientras la poción cae
+sonido_pocion_recoge = pygame.mixer.Sound(ruta_recurso("Sonidos/potion-drink.wav")) # Sonido al recoger la poción
+sonido_pocion_suelo = pygame.mixer.Sound(ruta_recurso("Sonidos/glitter-sparkle.mp3")) # Sonido mientras la poción está en el suelo
+sonido_next_level = pygame.mixer.Sound(ruta_recurso("Sonidos/level_complete.mp3")) # Sonido al pasar de oleada
 
 # =============================================================================
 # ESCALADO DE IMÁGENES
@@ -129,7 +157,7 @@ potion_img = pygame.transform.scale(potion_img, (50, 50)) # Poción: 50x50 px
 # empiece a sonar en cuanto el jugador ve la pantalla del menú.
 # =============================================================================
 
-pygame.mixer.music.load("Sonidos/arcade.mp3") # Carga el archivo de música
+pygame.mixer.music.load(ruta_recurso("Sonidos/arcade.mp3")) # Carga el archivo de música
 pygame.mixer.music.play(-1) # Reproduce en bucle infinito
 
 volumen = 0.7 # Volumen inicial al 70%
@@ -190,7 +218,7 @@ cooldown_dano = 2000 # Invencibilidad tras daño: 2 segundos (2000ms)
 # frame: contador de frames desde el inicio, usado para animaciones de parpadeo.
 # =============================================================================
 
-fuente = pygame.font.Font("Fuentes/Gothical.ttf", 30) # Fuente gótica tamaño 30 (reservada)
+fuente = pygame.font.Font(ruta_recurso("Fuentes/Gothical.ttf"), 30) # Fuente gótica tamaño 30 (reservada)
 powerups = [] # Lista de power-ups activos en pantalla
 frame = 0 # Contador de frames para animaciones
 
@@ -292,8 +320,8 @@ def mostrar_tabla(puntuaciones_ordenadas):
     El bucle while True mantiene la pantalla hasta que el jugador
     pulsa cualquier tecla o cierra la ventana.
     """
-    fuente_tabla = pygame.font.Font("Fuentes/ari.ttf", 25) # Fuente pixel para las filas
-    fuente_titulo = pygame.font.Font("Fuentes/Gothical.ttf", 80) # Fuente gótica para el título
+    fuente_tabla = pygame.font.Font(ruta_recurso("Fuentes/ari.ttf"), 25) # Fuente pixel para las filas
+    fuente_titulo = pygame.font.Font(ruta_recurso("Fuentes/Gothical.ttf"), 80) # Fuente gótica para el título
 
     while True:
         VENTANA.fill(NEGRO) # Fondo negro
@@ -330,7 +358,7 @@ def mostrar_tabla(puntuaciones_ordenadas):
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT or evento.type == pygame.KEYDOWN:
                 pygame.quit()
-                exit()
+                sys.exit()
 
 # =============================================================================
 # VARIABLES DE ESTADO DEL JUEGO
@@ -345,8 +373,8 @@ puntuaje = 0 # Puntuación acumulada (1 punto por enemigo eliminado)
 game_over = False # True si el jugador pierde todas las vidas
 victoria = False # True si el jugador completa las 10 oleadas
 
-fuente_hud = pygame.font.Font("Fuentes/ari.ttf", 20) # Fuente pixel tamaño 20 para el HUD
-fuente_hud_grande = pygame.font.Font("Fuentes/ari.ttf", 80) # Fuente pixel tamaño 80 para nombre
+fuente_hud = pygame.font.Font(ruta_recurso("Fuentes/ari.ttf"), 20) # Fuente pixel tamaño 20 para el HUD
+fuente_hud_grande = pygame.font.Font(ruta_recurso("Fuentes/ari.ttf"), 80) # Fuente pixel tamaño 80 para nombre
 tiempo_inicio = pygame.time.get_ticks() # Timestamp de inicio para el temporizador
 
 # =============================================================================
@@ -361,7 +389,7 @@ while True:
     VENTANA.blit(fondo, (0, 0)) # Dibuja el fondo de Gotham
 
     # Título principal
-    fuente_grande = pygame.font.Font("Fuentes/Gothical.ttf", 250)
+    fuente_grande = pygame.font.Font(ruta_recurso("Fuentes/Gothical.ttf"), 250)
     texto = fuente_grande.render("GOTHAM INVADERS", True, BLANCO)
     VENTANA.blit(texto, (ANCHO // 2 - texto.get_width() // 2, ALTO // 2 - texto.get_height() // 2))
 
@@ -383,7 +411,7 @@ while True:
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             pygame.quit()
-            exit()
+            sys.exit()
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_RETURN: # Pulsando ENTER empieza el juego
                 break
@@ -460,7 +488,7 @@ while ejecutando:
         VENTANA.blit(fondo, (0, 0)) # Fondo de Gotham detrás del menú de pausa
 
         # Texto de pausa centrado
-        fuente_grande = pygame.font.Font("Fuentes/Gothical.ttf", 170)
+        fuente_grande = pygame.font.Font(ruta_recurso("Fuentes/Gothical.ttf"), 170)
         texto = fuente_grande.render("PAUSA", True, BLANCO)
         VENTANA.blit(texto, (ANCHO // 2 - texto.get_width() // 2, ALTO // 2 - texto.get_height() // 2))
 
@@ -497,7 +525,7 @@ while ejecutando:
                     pausado = False # Sale del while pausado y reanuda el juego
                 if evento.key == pygame.K_q:
                     pygame.quit()
-                    exit()
+                    sys.exit()
 
     # -------------------------------------------------------------------------
     # MOVIMIENTO DEL JUGADOR
@@ -789,7 +817,7 @@ while ejecutando:
 
 if salir_juego:
     pygame.quit()
-    exit()
+    sys.exit()
 
 # =============================================================================
 # PANTALLA DE INTRODUCCIÓN DE NOMBRE
@@ -807,7 +835,7 @@ while len(nombre_jugador) < 3:
     frame += 1
     VENTANA.fill(NEGRO)
 
-    fuente_grande = pygame.font.Font("Fuentes/Gothical.ttf", 100)
+    fuente_grande = pygame.font.Font(ruta_recurso("Fuentes/Gothical.ttf"), 100)
     texto = fuente_grande.render("INTRODUCE TU NOMBRE", True, BLANCO)
     VENTANA.blit(texto, (ANCHO // 2 - texto.get_width() // 2, ALTO // 2 - 150))
 
@@ -830,7 +858,7 @@ while len(nombre_jugador) < 3:
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             pygame.quit()
-            exit()
+            sys.exit()
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_BACKSPACE:
                 nombre_jugador = nombre_jugador[:-1] # Elimina el último carácter
@@ -889,7 +917,7 @@ if game_over:
         statica = pygame.surfarray.make_surface(ruido_rgb)
         VENTANA.blit(statica, (0, 0))
 
-        fuente_grande = pygame.font.Font("Fuentes/Gothical.ttf", 200)
+        fuente_grande = pygame.font.Font(ruta_recurso("Fuentes/Gothical.ttf"), 200)
         texto = fuente_grande.render("GAME OVER", True, ROJO)
         VENTANA.blit(texto, (ANCHO // 2 - texto.get_width() // 2, ALTO // 2 - texto.get_height() // 2))
 
@@ -902,7 +930,7 @@ if game_over:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 pygame.quit()
-                exit()
+                sys.exit()
             if evento.type == pygame.KEYDOWN:
                 salir = True # Cualquier tecla sale de la pantalla de Game Over
 
@@ -936,7 +964,7 @@ elif victoria:
                 p["x"] = random.randint(0, ANCHO)
             pygame.draw.rect(VENTANA, p["color"], (p["x"], p["y"], 8, 8)) # Cuadrado de 8x8 px
 
-        fuente_grande = pygame.font.Font("Fuentes/Gothical.ttf", 200)
+        fuente_grande = pygame.font.Font(ruta_recurso("Fuentes/Gothical.ttf"), 200)
         texto = fuente_grande.render("YOU WIN!", True, FUCSIA)
         VENTANA.blit(texto, (ANCHO // 2 - texto.get_width() // 2, ALTO // 2 - texto.get_height() // 2))
 
@@ -949,8 +977,9 @@ elif victoria:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 pygame.quit()
-                exit()
+                sys.exit()
             if evento.type == pygame.KEYDOWN:
                 salir = True
 
     mostrar_tabla(puntuaciones_ordenadas)
+    
