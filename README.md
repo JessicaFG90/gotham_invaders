@@ -16,6 +16,10 @@
 |:-:|:-:|
 | ![Pausa](Img/screenshot_pause.png) | ![Game Over](Img/screenshot_gameover.png) |
 
+| Introducción de nombre | Top 10 Puntuaciones |
+|:-:|:-:|
+| ![Nombre](Img/screenshot_name.png) | ![Puntuaciones](Img/screenshot_score.png) |
+
 ---
 
 ## 🎮 Descripción
