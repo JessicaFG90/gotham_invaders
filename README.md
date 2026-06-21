@@ -177,4 +177,6 @@ itch.io: [jessicafg90.itch.io](https://jessicafg90.itch.io)
 
 ## 📝 Licencia
 
-Proyecto educativo desarrollado como práctica de primer año de DAM. Las imágenes, sonidos y fuentes utilizados son de uso libre o sin copyright.
+Proyecto educativo desarrollado como práctica de primer año de DAM.
+
+> ⚠️ Proyecto fan sin fines comerciales. Todos los personajes, nombres y elementos relacionados pertenecen a sus respectivos propietarios (DC Comics / Warner Bros). No se pretende infringir ningún derecho de autor.
