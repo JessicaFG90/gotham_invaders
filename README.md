@@ -8,8 +8,6 @@
 
 ## 📸 Capturas
 
-## 📸 Capturas
-
 | Menú Principal | Gameplay |
 |:-:|:-:|
 | ![Menú principal](Img/screenshot_menu.png) | ![Gameplay](Img/screenshot_gameplay.png) |
