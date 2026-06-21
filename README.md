@@ -2,14 +2,16 @@
 
 > Juego tipo Space Invaders con temática de Batman / Harley Quinn, desarrollado en Python con pygame como proyecto de primer año de DAM.
 
+[![Jugar en itch.io](https://img.shields.io/badge/Jugar%20en-itch.io-FA5C5C?style=for-the-badge&logo=itch.io&logoColor=white)](https://jessicafg90.itch.io/gotham-invaders)
+
 ---
 
 ## 📸 Capturas
 
 <!-- Añade aquí capturas de pantalla del juego -->
-<!-- ![Menú principal](img/screenshot_menu.png) -->
-<!-- ![Gameplay](img/screenshot_gameplay.png) -->
-<!-- ![Game Over](img/screenshot_gameover.png) -->
+<!-- ![Menú principal](Img/screenshot_menu.png) -->
+<!-- ![Gameplay](Img/screenshot_gameplay.png) -->
+<!-- ![Game Over](Img/screenshot_gameover.png) -->
 
 ---
 
@@ -100,12 +102,18 @@ gotham_invaders/
 
 ## 🚀 Instalación y ejecución
 
-### Requisitos previos
+### Opción A — Ejecutable (recomendado)
+
+Descarga el `.exe` desde [itch.io](https://jessicafg90.itch.io/gotham-invaders) y ejecútalo directamente. No necesitas instalar Python ni ninguna dependencia.
+
+### Opción B — Desde el código fuente
+
+#### Requisitos previos
 
 - Python 3.12 o superior
 - pip
 
-### Pasos
+#### Pasos
 
 1. Clona el repositorio:
 ```bash
@@ -123,6 +131,17 @@ pip install pygame numpy
 py gotham_invaders_game.py
 ```
 
+### Generar el ejecutable
+
+Si quieres compilar el `.exe` tú mismo desde el código fuente, instala PyInstaller y ejecuta:
+
+```bash
+pip install pyinstaller
+pyinstaller --onefile --noconsole --add-data "Img;Img" --add-data "Sonidos;Sonidos" --add-data "Fuentes;Fuentes" gotham_invaders_game.py
+```
+
+El ejecutable se generará en la carpeta `dist/`.
+
 ---
 
 ## 🎯 Mecánicas del juego
@@ -133,10 +152,19 @@ El juego tiene 10 oleadas. Cada oleada añade enemigos y aumenta la velocidad:
 - Oleadas 6-10: movimiento diagonal, +1 enemigo por oleada, menor frecuencia de disparo
 
 ### Power-ups
-A partir de la oleada 2 aparecen 2 pociones de vida extra por oleada. Permanecen en pantalla 7 segundos antes de desaparecer. Recógerlas suma 1 vida hasta el máximo de 3.
+A partir de la oleada 2 aparecen 2 pociones de vida extra por oleada. Permanecen en pantalla 7 segundos antes de desaparecer. Recogerlas suma 1 vida hasta el máximo de 3.
 
 ### Puntuación
 Se suma 1 punto por cada enemigo eliminado con el bate. Al finalizar la partida (victoria o Game Over) se registra el nombre, puntos, tiempo y oleada alcanzada en el Top 10.
+
+---
+
+## 👩‍💻 Autora
+
+**Jessica Fort González**  
+Estudiante de DAM
+GitHub: [@JessicaFG90](https://github.com/JessicaFG90)  
+itch.io: [jessicafg90.itch.io](https://jessicafg90.itch.io)
 
 ---
 
