@@ -12,11 +12,11 @@
 
 | Menú Principal | Gameplay |
 |:-:|:-:|
-| ![Menú principal](screenshots/screenshot_menu.png) | ![Gameplay](screenshots/screenshot_gameplay.png) |
+| ![Menú principal](Img/screenshot_menu.png) | ![Gameplay](Img/screenshot_gameplay.png) |
 
 | Pausa | Game Over |
 |:-:|:-:|
-| ![Pausa](screenshots/screenshot_pause.png) | ![Game Over](screenshots/screenshot_gameover.png) |
+| ![Pausa](Img/screenshot_pause.png) | ![Game Over](Img/screenshot_gameover.png) |
 
 ---
 
