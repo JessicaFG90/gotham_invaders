@@ -6,6 +6,12 @@
 
 ---
 
+## 🎮 Descripción
+
+Gotham Invaders es un videojuego de arcade desarrollado con Python y pygame. El jugador controla a Harley Quinn, que debe eliminar oleadas de Batmans lanzando su bate de béisbol. El juego cuenta con 10 oleadas de dificultad progresiva, sistema de vidas con corazones, power-ups, tabla de puntuaciones y pantallas animadas de victoria y Game Over.
+
+---
+
 ## 📸 Capturas
 
 | Menú Principal | Gameplay |
@@ -19,12 +25,6 @@
 | Introducción de nombre | Top 10 Puntuaciones |
 |:-:|:-:|
 | ![Nombre](Img/screenshot_name.png) | ![Puntuaciones](Img/screenshot_score.png) |
-
----
-
-## 🎮 Descripción
-
-Gotham Invaders es un videojuego de arcade desarrollado con Python y pygame. El jugador controla a Harley Quinn, que debe eliminar oleadas de Batmans lanzando su bate de béisbol. El juego cuenta con 10 oleadas de dificultad progresiva, sistema de vidas con corazones, power-ups, tabla de puntuaciones y pantallas animadas de victoria y Game Over.
 
 ---
 
