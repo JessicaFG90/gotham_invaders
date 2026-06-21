@@ -8,10 +8,15 @@
 
 ## 📸 Capturas
 
-<!-- Añade aquí capturas de pantalla del juego -->
-<!-- ![Menú principal](Img/screenshot_menu.png) -->
-<!-- ![Gameplay](Img/screenshot_gameplay.png) -->
-<!-- ![Game Over](Img/screenshot_gameover.png) -->
+## 📸 Capturas
+
+| Menú Principal | Gameplay |
+|:-:|:-:|
+| ![Menú principal](screenshots/screenshot_menu.png) | ![Gameplay](screenshots/screenshot_gameplay.png) |
+
+| Pausa | Game Over |
+|:-:|:-:|
+| ![Pausa](screenshots/screenshot_pause.png) | ![Game Over](screenshots/screenshot_gameover.png) |
 
 ---
 
