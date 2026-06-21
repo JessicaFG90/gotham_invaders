@@ -169,7 +169,7 @@ Se suma 1 punto por cada enemigo eliminado con el bate. Al finalizar la partida 
 ## 👩‍💻 Autora
 
 **Jessica Fort González**  
-Estudiante de DAM
+Estudiante de DAM <br>
 GitHub: [@JessicaFG90](https://github.com/JessicaFG90)  
 itch.io: [jessicafg90.itch.io](https://jessicafg90.itch.io)
 
